@@ -49,6 +49,7 @@ impl From<Error> for fmt::Error {
 
 #[cfg(feature = "std")]
 mod std_support {
+    use std::prelude::v1::*;
     use super::*;
     use std::{error, io};
 
