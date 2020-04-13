@@ -3,6 +3,8 @@
 //! This module provides `ToValue` implementations for commonly
 //! logged types from the standard library.
 
+#[cfg(feature = "mesalock_sgx")]
+use std::prelude::v1::*;
 use std::fmt;
 
 use super::{Primitive, ToValue, Value};
@@ -89,6 +91,7 @@ impl_into_owned! [
 
 #[cfg(feature = "std")]
 mod std_support {
+    use std::prelude::v1::*;
     use super::*;
 
     use std::borrow::Cow;

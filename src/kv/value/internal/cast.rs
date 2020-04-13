@@ -4,6 +4,8 @@
 //! but may end up executing arbitrary caller code if the value is complex.
 //! They will also attempt to downcast erased types into a primitive where possible.
 
+#[cfg(feature = "mesalock_sgx")]
+use std::prelude::v1::*;
 use std::any::TypeId;
 use std::fmt;
 
