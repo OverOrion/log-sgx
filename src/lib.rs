@@ -270,15 +270,21 @@
 )]
 #![warn(missing_docs)]
 #![deny(missing_debug_implementations)]
-#![cfg_attr(any(not(feature = "std"),
-                all(feature = "mesalock_sgx", not(target_env = "sgx"))),
-            no_std)]
+#![cfg_attr(
+    any(
+        not(feature = "std"),
+        all(feature = "mesalock_sgx", not(target_env = "sgx"))
+    ),
+    no_std
+)]
 // When compiled for the rustc compiler itself we want to make sure that this is
 // an unstable crate
 #![cfg_attr(rustbuild, feature(staged_api, rustc_private))]
 #![cfg_attr(rustbuild, unstable(feature = "rustc_private", issue = "27812"))]
-
-#![cfg_attr(all(target_env = "sgx", target_vendor = "mesalock"), feature(rustc_private))]
+#![cfg_attr(
+    all(target_env = "sgx", target_vendor = "mesalock"),
+    feature(rustc_private)
+)]
 
 #[cfg(all(feature = "std", feature = "mesalock_sgx", not(target_env = "sgx")))]
 #[macro_use]
@@ -1373,7 +1379,7 @@ where
         }
         INITIALIZING => {
             while STATE.load(Ordering::SeqCst) == INITIALIZING {
-                std::sync::atomic::spin_loop_hint();
+                std::hint::spin_loop();
             }
             Err(SetLoggerError(()))
         }
